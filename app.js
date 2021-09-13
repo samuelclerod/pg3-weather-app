@@ -1,9 +1,15 @@
-const { getWeather } = require("./utils/weatherService")
+const { geocode } = require("./utils/geocode")
+const { forecast } = require("./utils/forecast")
 
-const lat = '-7.2237358', lon = "-39678.3265404"
+const city = 'Blumenau'
 
-getWeather(lat, lon, (error, message) => {
-  console.log(error)
-  console.log(message)
+geocode(city, (error, geoLocation) => {
+  if (error) {
+    return console.log(`Some error occurred: ${error}`)
+  }
+  const { latitude, longitude } = geoLocation
+  forecast(latitude, longitude, (error, message) => {
+    if (error) return console.log(error)
+    console.log(message)
+  })
 })
-
