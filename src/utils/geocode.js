@@ -1,5 +1,5 @@
 const request = require('postman-request')
-const { geocode_variables } = require('../config/constants')
+const { geocode_variables } = require('config/constants')
 
 
 // Usando o request, você vai passar o nome da cidade e mostrar as coordenadas a partir da api do MAPBOX.
