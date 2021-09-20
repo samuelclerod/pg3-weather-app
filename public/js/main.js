@@ -1,0 +1,1 @@
+console.log("Scripts carregados na página")

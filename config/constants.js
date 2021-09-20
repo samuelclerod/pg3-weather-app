@@ -6,6 +6,9 @@ module.exports = {
   forecast_variables: {
     access_key: 'put your access key here',
     base_url: 'http://api.weatherstack.com/current',
+  },
+  server: {
+    port: 3000,
   }
 }
 

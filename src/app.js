@@ -1,4 +1,29 @@
+const path = require('path')
+const express = require('express')
+const constants = require('../config/constants')
 
+const app = express()
+
+const publicDirectoryPath = path.join(__dirname, '../public')
+app.use(express.static(publicDirectoryPath))
+
+//TODO add template engine: ejs, pug, hbs(handlebars)
+
+app.get('/weather', (req, res) => {
+  res.json({
+    forecast: 'minha previsão do tempo',
+    location: {
+      latitude: 9.87345,
+      longitude: 9.827348
+    }
+  })
+})
+
+const port = constants.server.port
+
+app.listen(port, () => {
+  console.log(`🚀 Starting app on port ${port}...`)
+})
 
 
 
