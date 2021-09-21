@@ -1,14 +1,14 @@
 module.exports = {
   geocode_variables: {
-    access_token: 'put your access token here',
-    base_url: 'https://api.mapbox.com/geocoding/v5/mapbox.places',
+    access_token: process.env.GEOCODE_TOKEN,
+    base_url: process.env.GEOCODE_URL,
   },
   forecast_variables: {
-    access_key: 'put your access key here',
-    base_url: 'http://api.weatherstack.com/current',
+    access_key: process.env.FORECAST_TOKEN,
+    base_url: process.env.FORECAST_URL,
   },
   server: {
-    port: 3000,
+    port: process.env.PORT,
   }
 }
 

@@ -1,10 +1,13 @@
 const path = require('path')
 const express = require('express')
+const dotenv = require('dotenv')
+
+dotenv.config()
+
 const constants = require('../config/constants')
+const publicDirectoryPath = path.join(__dirname, '../public')
 
 const app = express()
-
-const publicDirectoryPath = path.join(__dirname, '../public')
 app.use(express.static(publicDirectoryPath))
 
 //TODO add template engine: ejs, pug, hbs(handlebars)
