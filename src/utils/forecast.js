@@ -1,5 +1,5 @@
 const request = require('postman-request')
-const { forecast_variables } = require('../config/constants')
+const { forecast_variables } = require('../../config/constants')
 
 
 const forecast = (latitude, logitude, callback) => {
