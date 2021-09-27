@@ -22,7 +22,7 @@ app.use(express.static(publicDirectoryPath))
 // endpoints
 app.get('/', (req, res) => {
   res.render('home', {
-    title: '🏡 Home',
+    title: '🏡 Weather',
   })
 })
 
@@ -54,7 +54,11 @@ app.get('/help/*', (req, res) => {
 })
 
 app.get('*', (req, res) => {
-  res.send("404 Page not found")
+  res.render('404', {
+    layout: 'error_layout',
+    title: '🔎 404',
+    message: 'This is not the page you are looking for'
+  })
 })
 
 app.listen(port, () => {
@@ -63,8 +67,6 @@ app.listen(port, () => {
 
 // TODO: Criar pagina personalizada 404 para geral, que permita receber mensagens diferentes 
 // para ser usada tanto na rota "*" quanto na rota "/help/*"
-
-
 
 // const { geocode } = require("./utils/geocode")
 // const { forecast } = require("./utils/forecast")
