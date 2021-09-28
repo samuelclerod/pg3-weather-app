@@ -2,16 +2,14 @@ const request = require('postman-request')
 const { forecast_variables } = require('../../config/constants')
 
 
-const forecast = (latitude, logitude, callback) => {
+const forecast = (latitude, longitude, callback) => {
   const { access_key, base_url } = forecast_variables
-  const url = `${base_url}?access_key=${access_key}&query=${latitude},${logitude}`
+  const url = `${base_url}?access_key=${access_key}&query=${latitude},${longitude}`
 
   request({ url, json: true }, (error, response) => {
     if (error) {
-      // console.error(error)
       callback('Unavailable weather service', undefined)
     } else if (response.body.error) {
-      // console.error(response.body.error)
       callback('Invalid coordinates', undefined)
     } else {
       const { temperature, feelslike, weather_descriptions, precip } = response.body.current

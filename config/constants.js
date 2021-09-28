@@ -8,7 +8,7 @@ module.exports = {
     base_url: process.env.FORECAST_URL,
   },
   server: {
-    port: process.env.PORT,
+    port: process.env.PORT || 3000,
   }
 }
 

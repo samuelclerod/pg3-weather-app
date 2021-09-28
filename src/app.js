@@ -4,7 +4,11 @@ const hbs = require('hbs')
 const dotenv = require('dotenv')
 dotenv.config()
 
+//local imports
+const { geocode } = require("./utils/geocode")
+const { forecast } = require("./utils/forecast")
 const { port } = require('../config/constants').server
+
 const publicDirectoryPath = path.join(__dirname, '../public')
 const viewsPath = path.join(__dirname, '../templates/views')
 const partialsPath = path.join(__dirname, '../templates/partials')
@@ -39,13 +43,29 @@ app.get('/about', (req, res) => {
     name: 'Samuel Rodrigues',
   })
 })
+
 app.get('/weather', (req, res) => {
-  res.json({
-    forecast: 'minha previsão do tempo',
-    location: {
-      latitude: 9.87345,
-      longitude: 9.827348
+  //retrieve search terms
+  const { search } = req.query
+  if (!search) {
+    return res.status(400).send({ error: 'invalid search term' })
+  }
+  // get weather data
+  geocode(search, (error, geoLocation) => {
+    if (error) {
+      return res.status(500).send({ error })
     }
+    const { latitude, longitude } = geoLocation
+    forecast(latitude, longitude, (error, message) => {
+      if (error) {
+        return res.status(500).send({ error })
+      }
+      res.json({
+        searchTerm: search,
+        forecast: message,
+        location: geoLocation
+      })
+    })
   })
 })
 
@@ -64,22 +84,3 @@ app.get('*', (req, res) => {
 app.listen(port, () => {
   console.log(`🚀 Starting app on port ${port}...`)
 })
-
-// TODO: Criar pagina personalizada 404 para geral, que permita receber mensagens diferentes 
-// para ser usada tanto na rota "*" quanto na rota "/help/*"
-
-// const { geocode } = require("./utils/geocode")
-// const { forecast } = require("./utils/forecast")
-
-// const city = 'Blumenau'
-
-// geocode(city, (error, geoLocation) => {
-//   if (error) {
-//     return console.log(`Some error occurred: ${error}`)
-//   }
-//   const { latitude, longitude } = geoLocation
-//   forecast(latitude, longitude, (error, message) => {
-//     if (error) return console.log(error)
-//     console.log(message)
-//   })
-// })
