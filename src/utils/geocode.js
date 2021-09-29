@@ -11,6 +11,8 @@ const geocode = (searchTerm, callback) => {
       callback('Unavailable geolocation service', undefined)
     } else if (response.body.message) {
       callback('Invalid credentials', undefined)
+    } else if (!response.body.features[0]) {
+      callback('We can not find the location', undefined)
     } else {
       const [longitude, latitude] = response.body.features[0].center
       const location = response.body.features[0].place_name
